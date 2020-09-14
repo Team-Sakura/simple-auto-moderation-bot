@@ -1,25 +1,34 @@
-
 {
   "name": "simple-auto-moderation-bot",
   "version": "1.0.0",
-  "description": "simple-auto-moderation-bot",
-  "main": "index.js",
+  "description": "Simple Discord auto moderation bot",
+  "main": "source/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node source/index.js",
+    "debug": "nodemon source/index.js",
+    "lint": "eslint source/",
+    "lint:fix": "eslint source/ --fix"
   },
+  "author": "XDENIX",
+  "license": "MIT",
+  "homepage": "https://github.com/Team-Sakura/simple-auto-moderation-bot#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Team-Sakura/simple-auto-moderation-bot.git"
   },
-  "author": "XDENIX",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/Team-Sakura/simple-auto-moderation-bot/issues"
   },
-  "homepage": "https://github.com/Team-Sakura/simple-auto-moderation-bot#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "eslint": "^7.9.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0"
+  },
   "dependencies": {
     "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
-     "fs": "0.0.1-security"
+    "ms": "^2.1.2",
+    "fs": "0.0.1-security"
   }
 }
