@@ -15,7 +15,7 @@ const inviteRegex = () => {
 
 async function inviteCheck(bot, message) {
   if (!message.member.hasPermission('ADMINISTRATOR') && message.channel.permissionsFor(bot.user.id).has('MANAGE_MESSAGES')) {
-    const check = inviteRegex().text(message.content);
+    const check = inviteRegex().test(message.content);
     if (check) {
       const invites = '';
       const fetchInvite = await bot.fetchInvite(message.content).catch(null);
