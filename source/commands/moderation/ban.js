@@ -2,7 +2,7 @@ module.exports = {
   name: 'ban',
   aliases: ['apiban'],
   category: 'mod',
-  cooldown: 1000,
+  cooldown: 1,
   async run(bot, message, args) {
     if (!message.member.hasPermission('BAN_MEMBERS')) {
       return message.channel.send('У вас нету прав для этого надо право\n> `BAN_MEMBERS`');
@@ -25,5 +25,6 @@ module.exports = {
     })
       .then(() => message.channel.send(`Пользователь: ${member.user.tag}(\`${member.id}\`)\nПричина: \`${reason}\`\nКто Забанил: ${message.author.tag}(\`${message.author.id}\`)`))
       .catch((err) => { throw err; });
+    return null;
   },
 };

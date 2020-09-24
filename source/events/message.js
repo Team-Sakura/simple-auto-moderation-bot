@@ -15,9 +15,8 @@ const inviteRegex = () => {
 
 async function inviteCheck(bot, message) {
   if (!message.member.hasPermission('ADMINISTRATOR') && message.channel.permissionsFor(bot.user.id).has('MANAGE_MESSAGES')) {
-    const check = inviteRegex().text(message.content);
+    const check = inviteRegex().test(message.content);
     if (check) {
-      const invites = '';
       const fetchInvite = await bot.fetchInvite(message.content).catch(null);
       if (fetchInvite.guild.id === message.guild.id) return false;
 
@@ -33,21 +32,21 @@ async function inviteCheck(bot, message) {
   return false;
 }
 
-async function cooldownCheck(message, command) {
+async function cooldownCheck(bot, message, command) {
   if (!cooldown.has(command.name)) {
     cooldown.set(command.name, new Collection());
   }
 
   const now = Date.now();
   const timestamps = cooldown.get(command.name);
-  const cooldownAmount = (command.cooldown || 1) * 1000;
+  const cooldownAmount = (command.cooldown || bot.config.cooldownDefault) * 1000;
 
   if (timestamps.has(message.author.id)) {
     const userCooldown = timestamps.get(message.author.id);
-    const expirationTime = userCooldown.now + cooldownAmount;
+    const expirationTime = userCooldown + cooldownAmount;
 
     if (now < expirationTime) {
-      message.react('⏱️').catch(null);
+      await message.react('⏱️').catch(null);
       return true;
     }
   }
@@ -67,7 +66,7 @@ module.exports = {
 
     if (await inviteCheck(bot, message)) return;
 
-    const prefixList = [`${process.env.prefix}`, `<@${bot.user.id}>`, `<@!${bot.user.id}>`];
+    const prefixList = [`${bot.config.prefix}`, `<@${bot.user.id}>`, `<@!${bot.user.id}>`];
     const prefixNow = prefixList.find((prefix) => message.content.toLowerCase().startsWith(prefix));
     if (!prefixNow) return;
 
@@ -78,7 +77,7 @@ module.exports = {
       || bot.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(cmdName));
     if (!command) return;
 
-    if (await cooldownCheck(message, command)) return;
+    if (await cooldownCheck(bot, message, command)) return;
 
     try {
       command.run(bot, message, args);
