@@ -4,7 +4,7 @@ module.exports = {
   name: 'mute',
   aliases: ['shutup'],
   category: 'mod',
-  cooldown: 1000,
+  cooldown: 1,
   async run(bot, message, args) {
     if (!message.member.hasPermission('MANAGE_ROLES')) {
       return message.channel.send('У вас недостаточно прав для выполнения данного действия\nНужны права\n> `MANAGE_ROLES`');

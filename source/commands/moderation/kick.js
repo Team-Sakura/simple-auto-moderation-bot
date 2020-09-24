@@ -29,5 +29,6 @@ module.exports = {
     })
       .then(() => message.channel.send(`Пользователь: ${member.user.tag}(\`${member.id}\`)\nПричина: \`${reason}\`\nКто Кикнул: ${message.author.tag}(\`${message.author.id}\`)`))
       .catch((err) => { throw err; });
+    return null;
   },
 };

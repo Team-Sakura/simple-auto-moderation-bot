@@ -18,7 +18,7 @@ module.exports = {
    * Желаемый вами префикс
    */
 
-  cooldownDefault: 1,
+  cooldownDefault: 3,
   /**
    * cooldownDefault
    * Number - Число
